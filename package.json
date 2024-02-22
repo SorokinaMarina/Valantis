@@ -21,7 +21,9 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format": "prettier . --write",
+    "commit": "cz"
   },
   "lint-staged": {
     "*.{js, jsx,ts,tsx}": [
