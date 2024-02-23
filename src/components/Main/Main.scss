@@ -1,0 +1,53 @@
+.main {
+  width: 100%;
+
+  &__section {
+    width: 90%;
+    min-height: 150px;
+    margin: 50px auto 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 40px 40px;
+  }
+
+  &__container {
+    background-color: rgb(244, 240, 231);
+    width: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__price {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #a52838;
+  }
+
+  &__id {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  &__brand {
+    padding: 0 0 5px;
+    margin: 0;
+    font-weight: 500;
+    min-height: 20px;
+  }
+}
