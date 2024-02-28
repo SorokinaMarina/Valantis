@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { getProducts } from "../api/api";
 import Header from "../Header/Header";
@@ -7,58 +8,68 @@ import Main from "../Main/Main";
 import Preloader from "../Preloader/Preloader";
 
 function App() {
-  // Переменная хранит в себе id товаров
-  const [id, setId] = React.useState([]);
+  // // Переменная хранит в себе id товаров
+  const [id, setId] = useState([]);
   // Переменная хранит в себе информацию о товарах
-  const [products, setProducts] = React.useState([]);
+  const [products, setProducts] = useState([]);
   // Переменная включает/выключает прелоадер
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // Переменная показывает какое количество данных будем хранить на страничке
+  const [productsPerPage] = useState(50);
+  // Переменная хранит текущее смещение для отображения на странице
+  const [itemOffset, setItemOffset] = useState(0);
 
   // Получаем id товаров при первой загрузке страницы
-  React.useEffect(() => {
-    getProducts("get_ids", { offset: 0, limit: 15 })
+  useEffect(() => {
+    setIsLoading(true);
+    getProducts("get_ids", { offset: itemOffset })
       .then((data) => {
-        if (data) {
-          setId(data);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          return data;
-        }
+        setId(data);
       })
       .catch((err) => {
-        setIsLoading(false);
         console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(true);
       });
   }, []);
 
   // После получения списка id запрашиваем список товаров
-  React.useEffect(() => {
+  useEffect(() => {
     getProducts("get_items", { ids: id })
       .then((data) => {
         if (data) {
-          setProducts(data);
-          setIsLoading(false);
+          const uniqueProducts = [];
+
+          // Фильтруем товары с повторяющимися id
+          data.forEach((item) => {
+            if (!uniqueProducts.some((p) => p.id === item.id)) {
+              uniqueProducts.push(item);
+            }
+          });
+          setProducts(uniqueProducts);
         } else {
-          setIsLoading(false);
           return data;
         }
       })
       .catch((err) => {
-        setIsLoading(false);
         console.log(err);
       })
       .finally(() => {
-        // setIsLoading(true);
+        setIsLoading(false);
       });
   }, [id]);
+
   return (
     <div className="app">
       <Header />
-      {isLoading ? <Preloader /> : <Main products={products} />}
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <Main
+          productsPerPage={productsPerPage}
+          products={products}
+          setItemOffset={setItemOffset}
+          itemOffset={itemOffset}
+        />
+      )}
     </div>
   );
 }

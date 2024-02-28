@@ -29,7 +29,13 @@ export function getProducts(action, params) {
       if (res.ok) {
         return res.json();
       }
-      return console.log(res.status);
+      console.log(res.status);
+      return res.status;
     })
-    .then((data) => data.result);
+    .then((data) => {
+      if (data.result) {
+        return data.result;
+      }
+      return console.log(data);
+    });
 }

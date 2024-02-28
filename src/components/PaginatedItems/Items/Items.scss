@@ -1,0 +1,80 @@
+.items {
+  width: 100%;
+  min-height: 250px;
+  list-style-type: none;
+  padding: 0;
+  margin: 50px auto 50px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: auto;
+  gap: 40px 40px;
+
+  &__list {
+    background-color: rgb(244, 240, 231);
+    width: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    row-gap: 15px;
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+      transition-property: transform;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+    }
+  }
+
+  &__description {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    column-gap: 10px;
+    height: 67%;
+  }
+
+  &__title {
+    width: 100%;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    height: 33%;
+    display: -webkit-box; /* Включает flex-контейнер для многих строк */
+    -webkit-line-clamp: 2; /* Максимальное количество строк для отображения */
+    -webkit-box-orient: vertical; /* Устанавливает вертикальное направление расположения строк */
+    overflow: hidden; /* Обрезает текст, который не помещается */
+  }
+
+  &__price {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #a52838;
+    align-self: flex-end;
+  }
+
+  &__id {
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  &__brand {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    min-height: 20px;
+    font-size: 12px;
+  }
+}

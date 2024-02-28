@@ -1,0 +1,19 @@
+.buttons {
+  width: 30px;
+  min-height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #f2f3f7;
+  cursor: pointer;
+
+  &__color {
+    background-color: #000;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
