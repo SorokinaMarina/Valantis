@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from "react";
 import "./App.scss";
@@ -6,6 +5,7 @@ import { getProducts } from "../api/api";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Preloader from "../Preloader/Preloader";
+import FilterPopup from "../FilterPopup/FilterPopup";
 
 function App() {
   // // Переменная хранит в себе id товаров
@@ -18,6 +18,8 @@ function App() {
   const [productsPerPage] = useState(50);
   // Переменная хранит текущее смещение для отображения на странице
   const [itemOffset, setItemOffset] = useState(0);
+  // Переменная отвечает за видимость попапа с фильтрами
+  const [filterPopup, setFilterPopup] = useState(false);
 
   // Получаем id товаров при первой загрузке страницы
   useEffect(() => {
@@ -28,11 +30,15 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
   // После получения списка id запрашиваем список товаров
   useEffect(() => {
+    setIsLoading(true);
     getProducts("get_items", { ids: id })
       .then((data) => {
         if (data) {
@@ -68,8 +74,10 @@ function App() {
           products={products}
           setItemOffset={setItemOffset}
           itemOffset={itemOffset}
+          setFilterPopup={setFilterPopup}
         />
       )}
+      <FilterPopup filterPopup={filterPopup} setFilterPopup={setFilterPopup} />
     </div>
   );
 }

@@ -1,10 +1,18 @@
 import "./Main.scss";
 import PropTypes from "prop-types";
 import PaginatedItems from "../PaginatedItems/PaginatedItems";
+import Button from "../Button/Button";
 
-function Main({ productsPerPage, products, setItemOffset, itemOffset }) {
+function Main({
+  productsPerPage,
+  products,
+  setItemOffset,
+  itemOffset,
+  setFilterPopup,
+}) {
   return (
     <main className="main">
+      <Button text="Фильтры" setFilterPopup={setFilterPopup} />
       <PaginatedItems
         productsPerPage={productsPerPage}
         products={products}
@@ -24,10 +32,12 @@ Main.propTypes = {
   ),
   setItemOffset: PropTypes.func.isRequired,
   itemOffset: PropTypes.number.isRequired,
+  setFilterPopup: PropTypes.func,
 };
 
 Main.defaultProps = {
   products: [],
+  setFilterPopup: () => {},
 };
 
 export default Main;

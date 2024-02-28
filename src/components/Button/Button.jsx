@@ -1,24 +1,31 @@
 import "./Button.scss";
 import PropTypes from "prop-types";
+import filter from "../../image/icons8-параметры-сортировки-50.png";
 
-function Button({ number, currentPage, setCurrentPage }) {
+function Button({ text, setFilterPopup }) {
   return (
-    <button
-      className={`buttons ${number === currentPage && "buttons_color"}`}
-      type="button"
-      onClick={() => {
-        setCurrentPage(number);
-      }}
-    >
-      {number}
-    </button>
+    <div className="button">
+      <button
+        className="button__element"
+        type="button"
+        onClick={() => {
+          setFilterPopup(true);
+        }}
+      >
+        <img className="button__image" src={filter} alt="Фильтр" />
+        {text}
+      </button>
+    </div>
   );
 }
 
 Button.propTypes = {
-  number: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  setCurrentPage: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  setFilterPopup: PropTypes.func,
+};
+
+Button.defaultProps = {
+  setFilterPopup: () => {},
 };
 
 export default Button;
