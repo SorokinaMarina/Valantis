@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Preloader from "../Preloader/Preloader";
 import FilterPopup from "../FilterPopup/FilterPopup";
+import { BrandContext } from "../../contexts/BrandsContext";
 
 function App() {
   // // Переменная хранит в себе id товаров
@@ -20,6 +21,9 @@ function App() {
   const [itemOffset, setItemOffset] = useState(0);
   // Переменная отвечает за видимость попапа с фильтрами
   const [filterPopup, setFilterPopup] = useState(false);
+  // Переменная содержит в себе массив брендов
+  const [brands, setBrands] = useState([]);
+  console.log(brands);
 
   // Получаем id товаров при первой загрузке страницы
   useEffect(() => {
@@ -55,9 +59,24 @@ function App() {
           return data;
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    // Получаем массив брендов с сервера
+    getProducts("get_fields", { field: "brand" })
+      .then((data) => {
+        const filterBrands = data.filter((d) => d !== null);
+        const uniqueBrands = [];
+        filterBrands.forEach((item) => {
+          if (!uniqueBrands.some((el) => el === item)) {
+            uniqueBrands.push(item);
+          }
+        });
+        setBrands(uniqueBrands);
       })
+      .catch((err) => console.log(err))
       .finally(() => {
         setIsLoading(false);
       });
@@ -65,19 +84,24 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <Main
-          productsPerPage={productsPerPage}
-          products={products}
-          setItemOffset={setItemOffset}
-          itemOffset={itemOffset}
+      <BrandContext.Provider value={brands}>
+        <Header />
+        {isLoading ? (
+          <Preloader />
+        ) : (
+          <Main
+            productsPerPage={productsPerPage}
+            products={products}
+            setItemOffset={setItemOffset}
+            itemOffset={itemOffset}
+            setFilterPopup={setFilterPopup}
+          />
+        )}
+        <FilterPopup
+          filterPopup={filterPopup}
           setFilterPopup={setFilterPopup}
         />
-      )}
-      <FilterPopup filterPopup={filterPopup} setFilterPopup={setFilterPopup} />
+      </BrandContext.Provider>
     </div>
   );
 }

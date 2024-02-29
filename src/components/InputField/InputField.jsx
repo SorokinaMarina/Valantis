@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 function InputField({ id, placeholder, type }) {
   return (
     <fieldset className="input">
-      <label htmlFor={id} className="input__label">
+      <label className="input__label" htmlFor={id}>
         <input
           name={id}
           id={id}

@@ -1,0 +1,52 @@
+.checkbox {
+  width: 45%;
+  padding: 0;
+  margin: 0;
+
+  &__fieldset {
+    width: 100%;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__label {
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+  }
+
+  &__label &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  &__label &__span {
+    display: inline-block;
+    padding: 0 0 0 28px;
+    font-size: 12px;
+  }
+
+  &__label &__span::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    background-image: url("../../image/checkbox-icon.svg");
+    background-position: cover;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+    transition: background-image 0.3s ease;
+  }
+
+  &__label &__input:checked + &__span::before {
+    background-image: url("../../image/checkbox-checked.svg");
+    background-position: cover;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+  }
+}
