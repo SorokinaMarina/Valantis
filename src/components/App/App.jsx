@@ -23,7 +23,6 @@ function App() {
   const [filterPopup, setFilterPopup] = useState(false);
   // Переменная содержит в себе массив брендов
   const [brands, setBrands] = useState([]);
-  console.log(brands);
 
   // Получаем id товаров при первой загрузке страницы
   useEffect(() => {

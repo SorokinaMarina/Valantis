@@ -1,28 +1,40 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import "./Checkbox.scss";
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-function Checkbox({ text, id }) {
-  const [value, setValue] = useState(false);
+function Checkbox({ values, value, setValues, filteredCheckboxValues }) {
+  function handleChange(e) {
+    const { id, checked } = e.target;
 
-  function handleClick(e) {
-    const { checked } = e.target;
+    const updatedValues = values.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          checked,
+        };
+      }
+      return item;
+    });
 
-    setValue(checked);
+    setValues(updatedValues);
   }
   return (
     <li className="checkbox">
       <fieldset className="checkbox__fieldset">
         <label htmlFor="checkbox" className="checkbox__label">
           <input
-            name={id}
-            checked={value}
+            name={value.name}
+            checked={value.checked}
             type="checkbox"
-            id={id}
+            id={value.id}
             className="checkbox__input"
-            onChange={handleClick}
+            onChange={handleChange}
+            disabled={value.disabled}
+            onClick={filteredCheckboxValues}
           />
-          <span className="checkbox__span">{text}</span>
+          <span className="checkbox__span">{value.name}</span>
         </label>
       </fieldset>
     </li>
@@ -30,13 +42,21 @@ function Checkbox({ text, id }) {
 }
 
 Checkbox.propTypes = {
-  text: PropTypes.string,
-  id: PropTypes.number,
+  values: PropTypes.arrayOf(
+    PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.bool])),
+  ),
+  value: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  ),
+  setValues: PropTypes.func,
+  filteredCheckboxValues: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
-  text: undefined,
-  id: undefined,
+  values: [],
+  value: undefined,
+  setValues: () => {},
+  filteredCheckboxValues: () => {},
 };
 
 export default Checkbox;
