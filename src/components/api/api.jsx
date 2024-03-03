@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 // import fetch from "node-fetch";
 // const md5 = require("md5");
@@ -29,13 +30,14 @@ export function getProducts(action, params) {
       if (res.ok) {
         return res.json();
       }
-      console.log(res.status);
+
       return res.status;
     })
     .then((data) => {
       if (data.result) {
         return data.result;
       }
-      return console.log(data);
+
+      return data;
     });
 }

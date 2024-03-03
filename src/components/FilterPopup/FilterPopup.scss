@@ -46,3 +46,27 @@
     height: 100%;
   }
 }
+
+@media screen and (max-width: 900px) {
+  .popup {
+    &__container {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .popup {
+    &__container {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .popup {
+    &__container {
+      width: 100%;
+    }
+  }
+}

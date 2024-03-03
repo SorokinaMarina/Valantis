@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from "react";
 import "./App.scss";
@@ -7,6 +8,7 @@ import Main from "../Main/Main";
 import Preloader from "../Preloader/Preloader";
 import FilterPopup from "../FilterPopup/FilterPopup";
 import { BrandContext } from "../../contexts/BrandsContext";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 function App() {
   // // Переменная хранит в себе id товаров
@@ -14,7 +16,7 @@ function App() {
   // Переменная хранит в себе информацию о товарах
   const [products, setProducts] = useState([]);
   // Переменная включает/выключает прелоадер
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // Переменная показывает какое количество данных будем хранить на страничке
   const [productsPerPage] = useState(50);
   // Переменная хранит текущее смещение для отображения на странице
@@ -23,27 +25,37 @@ function App() {
   const [filterPopup, setFilterPopup] = useState(false);
   // Переменная содержит в себе массив брендов
   const [brands, setBrands] = useState([]);
+  // Переменная отвечает за видимость ошибки
+  const [error, setError] = useState(false);
+  // Переменная устанавливает текст ошибки
+  const [errorText, setErrorText] = useState("");
 
   // Получаем id товаров при первой загрузке страницы
   useEffect(() => {
     setIsLoading(true);
     getProducts("get_ids", { offset: itemOffset })
       .then((data) => {
-        setId(data);
+        if (data) {
+          setId(data);
+          setError(false);
+          setErrorText("");
+        }
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
+        setError(true);
+        setErrorText(
+          "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
+        );
+        return err;
       });
   }, []);
 
-  // После получения списка id запрашиваем список товаров
+  // После получения списка id запрашиваем список товаров и брендов
   useEffect(() => {
-    setIsLoading(true);
     getProducts("get_items", { ids: id })
       .then((data) => {
+        setIsLoading(true);
         if (data) {
           const uniqueProducts = [];
 
@@ -54,11 +66,12 @@ function App() {
             }
           });
           setProducts(uniqueProducts);
-        } else {
-          return data;
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err);
+        return err;
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -66,16 +79,28 @@ function App() {
     // Получаем массив брендов с сервера
     getProducts("get_fields", { field: "brand" })
       .then((data) => {
-        const filterBrands = data.filter((d) => d !== null);
-        const uniqueBrands = [];
-        filterBrands.forEach((item) => {
-          if (!uniqueBrands.some((el) => el === item)) {
-            uniqueBrands.push(item);
-          }
-        });
-        setBrands(uniqueBrands);
+        setIsLoading(true);
+        if (data) {
+          const filterBrands = data.filter((d) => d !== null);
+          const uniqueBrands = [];
+          filterBrands.forEach((item) => {
+            if (!uniqueBrands.some((el) => el === item)) {
+              uniqueBrands.push(item);
+            }
+          });
+          setBrands(uniqueBrands);
+          setError(false);
+          setErrorText("");
+        }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err);
+        setError(true);
+        setErrorText(
+          "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
+        );
+        return err;
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -85,9 +110,8 @@ function App() {
     <div className="app">
       <BrandContext.Provider value={brands}>
         <Header />
-        {isLoading ? (
-          <Preloader />
-        ) : (
+        {isLoading && !error && <Preloader />}
+        {!isLoading && !error && (
           <Main
             productsPerPage={productsPerPage}
             products={products}
@@ -96,9 +120,14 @@ function App() {
             setFilterPopup={setFilterPopup}
           />
         )}
+        {!isLoading && error && <ErrorMessage errorText={errorText} />}
         <FilterPopup
           filterPopup={filterPopup}
           setFilterPopup={setFilterPopup}
+          setId={setId}
+          setIsLoading={setIsLoading}
+          setError={setError}
+          setErrorText={setErrorText}
         />
       </BrandContext.Provider>
     </div>

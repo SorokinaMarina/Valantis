@@ -24,3 +24,10 @@
     padding-right: 10px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .button {
+    justify-content: center;
+    margin: 20px 0;
+  }
+}

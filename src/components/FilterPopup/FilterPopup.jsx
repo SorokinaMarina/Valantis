@@ -4,7 +4,14 @@ import React, { useEffect } from "react";
 import exitIcon from "../../image/close-icon-black.svg";
 import Form from "../Form/Form";
 
-function FilterPopup({ filterPopup, setFilterPopup }) {
+function FilterPopup({
+  filterPopup,
+  setFilterPopup,
+  setId,
+  setIsLoading,
+  setError,
+  setErrorText,
+}) {
   useEffect(() => {
     // Закрываем попап щелчком на Esc
     const closeEsc = (e) => {
@@ -41,7 +48,14 @@ function FilterPopup({ filterPopup, setFilterPopup }) {
         >
           <img className="popup__icon" src={exitIcon} alt="Кнопка выйти" />
         </button>
-        <Form id="filter-form" />
+        <Form
+          id="filter-form"
+          setId={setId}
+          setIsLoading={setIsLoading}
+          setFilterPopup={setFilterPopup}
+          setError={setError}
+          setErrorText={setErrorText}
+        />
       </div>
     </div>
   );
@@ -50,10 +64,18 @@ function FilterPopup({ filterPopup, setFilterPopup }) {
 FilterPopup.propTypes = {
   filterPopup: PropTypes.bool.isRequired,
   setFilterPopup: PropTypes.func,
+  setId: PropTypes.func,
+  setIsLoading: PropTypes.func,
+  setError: PropTypes.func,
+  setErrorText: PropTypes.func,
 };
 
 FilterPopup.defaultProps = {
   setFilterPopup: () => {},
+  setId: () => {},
+  setIsLoading: () => {},
+  setError: () => {},
+  setErrorText: () => {},
 };
 
 export default FilterPopup;
