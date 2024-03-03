@@ -11,7 +11,7 @@ function FilterList({
   type,
   id,
   placeholder,
-  changeFilterMenuCondidtion,
+  changeFilterMenuCondition,
   filterMenuVisible,
   setValues,
   name,
@@ -25,7 +25,7 @@ function FilterList({
         type="button"
         className="list__button"
         onClick={() => {
-          changeFilterMenuCondidtion(id);
+          changeFilterMenuCondition(id);
         }}
       >
         <p className="list__text">{text}</p>
@@ -62,7 +62,7 @@ FilterList.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
-  changeFilterMenuCondidtion: PropTypes.func,
+  changeFilterMenuCondition: PropTypes.func,
   filterMenuVisible: PropTypes.objectOf(PropTypes.bool).isRequired,
   setValues: PropTypes.func,
   name: PropTypes.string.isRequired,
@@ -72,7 +72,7 @@ FilterList.propTypes = {
 };
 
 FilterList.defaultProps = {
-  changeFilterMenuCondidtion: () => {},
+  changeFilterMenuCondition: () => {},
   setValues: () => {},
   values: {},
 };

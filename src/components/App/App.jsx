@@ -9,6 +9,7 @@ import Preloader from "../Preloader/Preloader";
 import FilterPopup from "../FilterPopup/FilterPopup";
 import { BrandContext } from "../../contexts/BrandsContext";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { setCountProducts } from "../../utils/constants/constants";
 
 function App() {
   // // Переменная хранит в себе id товаров
@@ -18,7 +19,7 @@ function App() {
   // Переменная включает/выключает прелоадер
   const [isLoading, setIsLoading] = useState(true);
   // Переменная показывает какое количество данных будем хранить на страничке
-  const [productsPerPage] = useState(50);
+  const [productsPerPage, setProductsPerPage] = useState(50);
   // Переменная хранит текущее смещение для отображения на странице
   const [itemOffset, setItemOffset] = useState(0);
   // Переменная отвечает за видимость попапа с фильтрами
@@ -30,7 +31,29 @@ function App() {
   // Переменная устанавливает текст ошибки
   const [errorText, setErrorText] = useState("");
 
-  // Получаем id товаров при первой загрузке страницы
+  // Устанаваливаем определённое количество карточек на страницу, в зависимости от ширины
+  useEffect(() => {
+    function handleResize() {
+      setProductsPerPage(setCountProducts());
+    }
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Функция, содержащая логику обработки ошибок
+  function handleError(err) {
+    console.log(err);
+    setError(true);
+    setErrorText(
+      "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
+    );
+    return err;
+  }
+
+  // Получаем id товаров
   useEffect(() => {
     setIsLoading(true);
     getProducts("get_ids", { offset: itemOffset })
@@ -42,68 +65,51 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
-        setError(true);
-        setErrorText(
-          "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
-        );
-        return err;
+        handleError(err);
       });
-  }, []);
+  }, [itemOffset]);
 
   // После получения списка id запрашиваем список товаров и брендов
   useEffect(() => {
-    getProducts("get_items", { ids: id })
-      .then((data) => {
-        setIsLoading(true);
-        if (data) {
-          const uniqueProducts = [];
+    if (id.length !== 0) {
+      Promise.all([
+        getProducts("get_items", { ids: id }),
+        getProducts("get_fields", { field: "brand" }),
+      ])
+        .then(([productItems, brandItems]) => {
+          setIsLoading(true);
+          if (productItems) {
+            const uniqueProducts = [];
 
-          // Фильтруем товары с повторяющимися id
-          data.forEach((item) => {
-            if (!uniqueProducts.some((p) => p.id === item.id)) {
-              uniqueProducts.push(item);
-            }
-          });
-          setProducts(uniqueProducts);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        return err;
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+            // Фильтруем товары с повторяющимися id и соханяем в переменную
+            productItems.forEach((item) => {
+              if (!uniqueProducts.some((p) => p.id === item.id)) {
+                uniqueProducts.push(item);
+                setIsLoading(false);
+              }
+            });
+            setProducts(uniqueProducts);
+          }
 
-    // Получаем массив брендов с сервера
-    getProducts("get_fields", { field: "brand" })
-      .then((data) => {
-        setIsLoading(true);
-        if (data) {
-          const filterBrands = data.filter((d) => d !== null);
-          const uniqueBrands = [];
-          filterBrands.forEach((item) => {
-            if (!uniqueBrands.some((el) => el === item)) {
-              uniqueBrands.push(item);
-            }
-          });
-          setBrands(uniqueBrands);
-          setError(false);
-          setErrorText("");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(true);
-        setErrorText(
-          "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
-        );
-        return err;
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+          if (brandItems) {
+            // Фильтруем бренды и сохраняем в переменную
+            const filterBrands = brandItems.filter((d) => d !== null);
+            const uniqueBrands = [];
+            filterBrands.forEach((item) => {
+              if (!uniqueBrands.some((el) => el === item)) {
+                uniqueBrands.push(item);
+              }
+            });
+            setBrands(uniqueBrands);
+            setError(false);
+            setErrorText("");
+          }
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          handleError(err);
+        });
+    }
   }, [id]);
 
   return (

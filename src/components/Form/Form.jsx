@@ -24,8 +24,8 @@ function Form({
   const [values, setValues] = useState({});
 
   // Функция изменяет значение переменных объекта filterMenuVisible
-  function changeFilterMenuCondidtion(i) {
-    if (i === "inputName") {
+  function changeFilterMenuCondition(filterName) {
+    if (filterName === "inputName") {
       setFilterMenuVisible({
         inputPrice: false,
         inputName: !filterMenuVisible.inputName,
@@ -33,7 +33,7 @@ function Form({
       });
     }
 
-    if (i === "inputPrice") {
+    if (filterName === "inputPrice") {
       setFilterMenuVisible({
         inputPrice: !filterMenuVisible.inputPrice,
         inputName: false,
@@ -41,7 +41,7 @@ function Form({
       });
     }
 
-    if (i === "inputBrand") {
+    if (filterName === "inputBrand") {
       setFilterMenuVisible({
         inputPrice: false,
         inputName: false,
@@ -64,8 +64,6 @@ function Form({
           setId(data);
           setError(false);
           setErrorText("");
-        } else {
-          return data;
         }
       })
       .catch((err) => {
@@ -90,8 +88,8 @@ function Form({
             id="inputPrice"
             name="price"
             placeholder="Введите числовое значение"
-            changeFilterMenuCondidtion={(i) => {
-              changeFilterMenuCondidtion(i);
+            changeFilterMenuCondition={(filterName) => {
+              changeFilterMenuCondition(filterName);
             }}
             filterMenuVisible={filterMenuVisible}
             values={values}
@@ -103,8 +101,8 @@ function Form({
             id="inputName"
             name="product"
             placeholder="Введите ключевое слово"
-            changeFilterMenuCondidtion={(i) => {
-              changeFilterMenuCondidtion(i);
+            changeFilterMenuCondition={(filterName) => {
+              changeFilterMenuCondition(filterName);
             }}
             filterMenuVisible={filterMenuVisible}
             values={values}
@@ -116,8 +114,8 @@ function Form({
             id="inputBrand"
             name="brand"
             placeholder=""
-            changeFilterMenuCondidtion={(i) => {
-              changeFilterMenuCondidtion(i);
+            changeFilterMenuCondition={(filterName) => {
+              changeFilterMenuCondition(filterName);
             }}
             filterMenuVisible={filterMenuVisible}
             setValues={setValues}

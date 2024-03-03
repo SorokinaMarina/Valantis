@@ -12,21 +12,22 @@ function FilterPopup({
   setError,
   setErrorText,
 }) {
+  // Закрываем попап щелчком на Esc
+  const closeEsc = (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      setFilterPopup(false);
+    }
+  };
+
+  // Закрываем попап щелчком на фон
+  const closeClickBackground = (e) => {
+    if (e.target.classList.contains("popup_opened")) {
+      setFilterPopup(false);
+    }
+  };
+
+  // Добавляем и удаляем слушатели событий по клику на Esc и фон
   useEffect(() => {
-    // Закрываем попап щелчком на Esc
-    const closeEsc = (e) => {
-      if (e.key === "Escape" || e.key === "Esc") {
-        setFilterPopup(false);
-      }
-    };
-
-    // Закрываем попап щелчком на фон
-    const closeClickBackground = (e) => {
-      if (e.target.classList.contains("popup_opened")) {
-        setFilterPopup(false);
-      }
-    };
-
     window.addEventListener("keydown", closeEsc);
     window.addEventListener("mousedown", closeClickBackground);
 
