@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Valantis/static/css/main.68eb3d9d.css",
+    "main.js": "/Valantis/static/js/main.4cb97317.js",
+    "static/js/453.6393fe9b.chunk.js": "/Valantis/static/js/453.6393fe9b.chunk.js",
+    "static/media/manrope-medium.ttf": "/Valantis/static/media/manrope-medium.c06a779250a1e6573406.ttf",
+    "static/media/manrope-regular.ttf": "/Valantis/static/media/manrope-regular.683e2e27ab5a53243848.ttf",
+    "static/media/manrope-bold.ttf": "/Valantis/static/media/manrope-bold.dec8a440784695da86fe.ttf",
+    "static/media/close-icon-black.svg": "/Valantis/static/media/close-icon-black.87289b31273358c9ed000d4371fd0819.svg",
+    "static/media/downarrow_120663.svg": "/Valantis/static/media/downarrow_120663.2e7bd82861364195d81925ac2221fae4.svg",
+    "index.html": "/Valantis/index.html",
+    "main.68eb3d9d.css.map": "/Valantis/static/css/main.68eb3d9d.css.map",
+    "main.4cb97317.js.map": "/Valantis/static/js/main.4cb97317.js.map",
+    "453.6393fe9b.chunk.js.map": "/Valantis/static/js/453.6393fe9b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68eb3d9d.css",
+    "static/js/main.4cb97317.js"
+  ]
+}
