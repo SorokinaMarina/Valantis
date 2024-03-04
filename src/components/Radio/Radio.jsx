@@ -10,7 +10,7 @@ function Radio({ item, setValues, inputName }) {
   return (
     <li className="radio">
       <fieldset className="radio__fieldset">
-        <label htmlFor="radio" className="radio__label">
+        <label htmlFor={item} className="radio__label">
           <input
             name={inputName}
             type="radio"

@@ -54,9 +54,8 @@ function Form({
 
   // Функция, которая фильтрует данные
   function handleSubmit(e) {
-    e.preventDefault();
-
     setIsLoading(true);
+    e.preventDefault();
     setFilterPopup(false);
     getProducts("filter", values)
       .then((data) => {
@@ -67,13 +66,11 @@ function Form({
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
         setError(true);
         setErrorText("Товары не найдены");
         return err;
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   }
 
