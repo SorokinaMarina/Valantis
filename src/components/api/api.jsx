@@ -4,7 +4,7 @@
 // const md5 = require("md5");
 import md5 from "md5";
 
-const url = "http://api.valantis.store:40000/";
+const url = "https://api.valantis.store:41000/";
 const password = "Valantis";
 const date = new Date();
 const headers = {

@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 import PropTypes from "prop-types";
 import Items from "./Items/Items";
 import "./PaginatedItems.scss";
+import { countPaginatePages } from "../../utils/constants/constants";
 
 function PaginatedItems({
   productsPerPage,
@@ -17,7 +18,7 @@ function PaginatedItems({
   // Считаем сколько страниц в пагинации должно быть
   const pageCount = Math.ceil(products.length / productsPerPage);
   // Переменная отвечает за диапазон пагинации
-  const [pageRange, setPageRange] = useState(5);
+  const [pageRange, setPageRange] = useState(countPaginatePages());
 
   // Функция вычисляет новое смещение на основе индекса выбранной страницы
   const handlePageClick = (event) => {
@@ -28,11 +29,7 @@ function PaginatedItems({
   // Функция устанавливает диапазон страниц в пагинации
   useEffect(() => {
     function handleResize() {
-      if (window.innerWidth > 600) {
-        setPageRange(5);
-      } else {
-        setPageRange(3);
-      }
+      setPageRange(countPaginatePages());
     }
 
     window.addEventListener("resize", handleResize);

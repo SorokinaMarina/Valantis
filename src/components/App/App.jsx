@@ -19,7 +19,7 @@ function App() {
   // Переменная включает/выключает прелоадер
   const [isLoading, setIsLoading] = useState(true);
   // Переменная показывает какое количество данных будем хранить на страничке
-  const [productsPerPage, setProductsPerPage] = useState(50);
+  const [productsPerPage, setProductsPerPage] = useState(setCountProducts());
   // Переменная хранит текущее смещение для отображения на странице
   const [itemOffset, setItemOffset] = useState(0);
   // Переменная отвечает за видимость попапа с фильтрами
@@ -56,7 +56,7 @@ function App() {
   // Получаем id товаров
   useEffect(() => {
     setIsLoading(true);
-    getProducts("get_ids", { offset: itemOffset })
+    getProducts("get_ids", { offset: 0 })
       .then((data) => {
         if (data) {
           setId(data);
@@ -67,7 +67,7 @@ function App() {
       .catch((err) => {
         handleError(err);
       });
-  }, [itemOffset]);
+  }, []);
 
   // После получения списка id запрашиваем список товаров и брендов
   useEffect(() => {
