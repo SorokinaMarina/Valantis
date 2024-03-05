@@ -1,22 +1,23 @@
 ul[role="navigation"] {
   display: flex;
+  margin: 0 auto;
   justify-content: center;
   list-style-type: none;
-  width: 100%;
+  width: 90%;
   padding: 0 0 50px;
-  margin: 0;
-  column-gap: 20px;
+  column-gap: 15px;
 
   & > li {
     width: 35px;
     height: 35px;
 
     & > a {
-      display: block;
+      display: flex;
       width: 30px;
       height: 30px;
       background-color: rgb(242, 242, 247);
-      text-align: center;
+      justify-content: center;
+      align-items: center;
       border-radius: 50%;
       color: #000;
       padding: 5px;
@@ -31,6 +32,22 @@ ul[role="navigation"] {
     & + .selected > a {
       color: #fff;
       background-color: #000;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  ul[role="navigation"] {
+    & > li {
+      width: 30px;
+      height: 30px;
+
+      & > a {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        padding: 3px;
+      }
     }
   }
 }

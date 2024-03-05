@@ -13,5 +13,9 @@ export function countPaginatePages() {
     return 5;
   }
 
-  return 3;
+  if (window.innerWidth > 450) {
+    return 3;
+  }
+
+  return 1;
 }
