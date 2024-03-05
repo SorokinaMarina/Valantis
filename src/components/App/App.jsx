@@ -50,13 +50,14 @@ function App() {
     setErrorText(
       "При загрузке данных с сервера произошла ошибка. Попробуйте перезагрузить страницу.",
     );
+    setIsLoading(false);
     return err;
   }
 
   // Получаем id товаров
   useEffect(() => {
     setIsLoading(true);
-    getProducts("get_ids", { offset: 0 })
+    getProducts("get_ids", { offset: 0, limit: 500 })
       .then((data) => {
         if (data) {
           setId(data);
@@ -134,6 +135,9 @@ function App() {
           setIsLoading={setIsLoading}
           setError={setError}
           setErrorText={setErrorText}
+          handleError={(err) => {
+            handleError(err);
+          }}
         />
       </BrandContext.Provider>
     </div>

@@ -13,6 +13,7 @@ function Form({
   setFilterPopup,
   setError,
   setErrorText,
+  handleError,
 }) {
   // Объект содержит переменные, отвечающие за видимость инпутов меню фильтрации
   const [filterMenuVisible, setFilterMenuVisible] = useState({
@@ -59,17 +60,22 @@ function Form({
     setFilterPopup(false);
     getProducts("filter", values)
       .then((data) => {
-        if (data) {
+        if (data.length === 0) {
+          console.log(data);
+          setId([]);
+          setIsLoading(false);
+          setError(true);
+          setErrorText(
+            "Товары не найдены. Перезагрузите страницу и попробуйте ещё раз.",
+          );
+        } else {
           setId(data);
           setError(false);
           setErrorText("");
         }
       })
       .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-        setError(true);
-        setErrorText("Товары не найдены");
+        handleError(err);
         return err;
       });
   }
@@ -139,6 +145,7 @@ Form.propTypes = {
   setFilterPopup: PropTypes.func,
   setError: PropTypes.func,
   setErrorText: PropTypes.func,
+  handleError: PropTypes.func,
 };
 
 Form.defaultProps = {
@@ -147,6 +154,7 @@ Form.defaultProps = {
   setFilterPopup: () => {},
   setError: () => {},
   setErrorText: () => {},
+  handleError: () => {},
 };
 
 export default Form;

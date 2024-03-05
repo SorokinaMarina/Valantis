@@ -11,6 +11,7 @@ function FilterPopup({
   setIsLoading,
   setError,
   setErrorText,
+  handleError,
 }) {
   // Закрываем попап щелчком на Esc
   const closeEsc = (e) => {
@@ -56,6 +57,9 @@ function FilterPopup({
           setFilterPopup={setFilterPopup}
           setError={setError}
           setErrorText={setErrorText}
+          handleError={(err) => {
+            handleError(err);
+          }}
         />
       </div>
     </div>
@@ -69,6 +73,7 @@ FilterPopup.propTypes = {
   setIsLoading: PropTypes.func,
   setError: PropTypes.func,
   setErrorText: PropTypes.func,
+  handleError: PropTypes.func,
 };
 
 FilterPopup.defaultProps = {
@@ -77,6 +82,7 @@ FilterPopup.defaultProps = {
   setIsLoading: () => {},
   setError: () => {},
   setErrorText: () => {},
+  handleError: () => {},
 };
 
 export default FilterPopup;
