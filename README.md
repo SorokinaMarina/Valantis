@@ -18,6 +18,7 @@
 * PropTypes
 * React
 * REST API
+* Git
 
 ## Установка и запуск проекта локально
 
