@@ -35,3 +35,6 @@
 
 ## [Ссылка на gh-pages](https://sorokinamarina.github.io/Valantis/)
 
+## В планах
+* Переписать проект на TypeScript
+
