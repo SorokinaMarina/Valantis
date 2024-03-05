@@ -23,15 +23,19 @@
 ## Установка и запуск проекта локально
 
 * Клонировать репозиторий
+  
   `git clone git@github.com:SorokinaMarina/Valantis.git`
 
 * Перейти в папку "Valantis"
+  
   `cd Valantis`
 
 * Установить зависимости
+  
   `npm i`
 
 * Запустить фронтенд часть
+  
   `npm run start`
 
 ## [Ссылка на gh-pages](https://sorokinamarina.github.io/Valantis/)
