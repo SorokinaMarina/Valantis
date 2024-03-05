@@ -38,7 +38,8 @@
   
   `npm run start`
 
-#### [Ссылка на gh-pages](https://sorokinamarina.github.io/Valantis/)
+## Ссылка на проект 
+[Кликни на меня](https://sorokinamarina.github.io/Valantis/)
 
 ## В планах
 * Реализовать переход на отдельную страницу с подробной информацией о товаре при клике на карточку 
