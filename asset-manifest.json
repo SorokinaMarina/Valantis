@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Valantis/static/css/main.a527a0d0.css",
-    "main.js": "/Valantis/static/js/main.631c4ea0.js",
+    "main.css": "/Valantis/static/css/main.4f5e7a79.css",
+    "main.js": "/Valantis/static/js/main.e28f51e0.js",
     "static/js/453.6393fe9b.chunk.js": "/Valantis/static/js/453.6393fe9b.chunk.js",
     "static/media/manrope-medium.ttf": "/Valantis/static/media/manrope-medium.c06a779250a1e6573406.ttf",
     "static/media/manrope-regular.ttf": "/Valantis/static/media/manrope-regular.683e2e27ab5a53243848.ttf",
@@ -9,12 +9,12 @@
     "static/media/close-icon-black.svg": "/Valantis/static/media/close-icon-black.87289b31273358c9ed000d4371fd0819.svg",
     "static/media/downarrow_120663.svg": "/Valantis/static/media/downarrow_120663.2e7bd82861364195d81925ac2221fae4.svg",
     "index.html": "/Valantis/index.html",
-    "main.a527a0d0.css.map": "/Valantis/static/css/main.a527a0d0.css.map",
-    "main.631c4ea0.js.map": "/Valantis/static/js/main.631c4ea0.js.map",
+    "main.4f5e7a79.css.map": "/Valantis/static/css/main.4f5e7a79.css.map",
+    "main.e28f51e0.js.map": "/Valantis/static/js/main.e28f51e0.js.map",
     "453.6393fe9b.chunk.js.map": "/Valantis/static/js/453.6393fe9b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a527a0d0.css",
-    "static/js/main.631c4ea0.js"
+    "static/css/main.4f5e7a79.css",
+    "static/js/main.e28f51e0.js"
   ]
 }
