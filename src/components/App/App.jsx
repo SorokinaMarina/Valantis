@@ -68,7 +68,7 @@ function App() {
       .catch((err) => {
         handleError(err);
       });
-  }, []);
+  }, [productsPerPage]);
 
   // После получения списка id запрашиваем список товаров и брендов
   useEffect(() => {
@@ -125,6 +125,7 @@ function App() {
             setItemOffset={setItemOffset}
             itemOffset={itemOffset}
             setFilterPopup={setFilterPopup}
+            setProductsPerPage={setProductsPerPage}
           />
         )}
         {!isLoading && error && <ErrorMessage errorText={errorText} />}

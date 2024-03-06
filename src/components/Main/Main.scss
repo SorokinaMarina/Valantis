@@ -1,4 +1,20 @@
 .main {
   width: 90%;
   margin: 0 auto 50px;
+
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main {
+    &__container {
+      flex-direction: column-reverse;
+    }
+  }
 }

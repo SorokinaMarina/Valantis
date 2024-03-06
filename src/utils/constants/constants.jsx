@@ -1,3 +1,5 @@
+export const pageElementsCount = [20, 30, 40, 50];
+
 export function setCountProducts() {
   if (window.innerWidth >= 1280) {
     return 50;

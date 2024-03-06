@@ -2,6 +2,7 @@ import "./Main.scss";
 import PropTypes from "prop-types";
 import PaginatedItems from "../PaginatedItems/PaginatedItems";
 import Button from "../Button/Button";
+import Select from "../Select/Select";
 
 function Main({
   productsPerPage,
@@ -9,10 +10,17 @@ function Main({
   setItemOffset,
   itemOffset,
   setFilterPopup,
+  setProductsPerPage,
 }) {
   return (
     <main className="main">
-      <Button text="Фильтры" setFilterPopup={setFilterPopup} />
+      <div className="main__container">
+        <Select
+          productsPerPage={productsPerPage}
+          setProductsPerPage={setProductsPerPage}
+        />
+        <Button text="Фильтры" setFilterPopup={setFilterPopup} />
+      </div>
       <PaginatedItems
         productsPerPage={productsPerPage}
         products={products}
@@ -33,11 +41,13 @@ Main.propTypes = {
   setItemOffset: PropTypes.func.isRequired,
   itemOffset: PropTypes.number.isRequired,
   setFilterPopup: PropTypes.func,
+  setProductsPerPage: PropTypes.func,
 };
 
 Main.defaultProps = {
   products: [],
   setFilterPopup: () => {},
+  setProductsPerPage: () => {},
 };
 
 export default Main;

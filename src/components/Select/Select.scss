@@ -1,0 +1,33 @@
+.select {
+  min-width: 360px;
+  border: none;
+  padding: 0;
+
+  &__label {
+    width: 100%;
+    font-size: 14;
+    display: block;
+  }
+
+  &__select {
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 2px 5px;
+    width: 50px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .select {
+    min-width: 250px;
+
+    &__label {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__select {
+      margin: 5px auto 0;
+    }
+  }
+}
