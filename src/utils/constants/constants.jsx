@@ -5,7 +5,7 @@ export function setCountProducts() {
     return 50;
   }
   if (window.innerWidth < 1280 && window.innerWidth >= 700) {
-    return 48;
+    return 40;
   }
   return 20;
 }
