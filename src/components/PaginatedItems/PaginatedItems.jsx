@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import PropTypes from "prop-types";
 import Items from "./Items/Items";
 import "./PaginatedItems.scss";
 import { countPaginatePages } from "../../utils/constants/constants";
 
-function PaginatedItems({
-  productsPerPage,
-  products,
-  setItemOffset,
-  itemOffset,
-}) {
+function PaginatedItems({ productsPerPage, setItemOffset, itemOffset }) {
+  // Получаем данные продуктов из хранилища
+  const products = useSelector((state) => state.productsReducer.products);
   // Переменная вычисляет конечное смещение для отображения на странице
   const endOffset = itemOffset + productsPerPage;
   // Переменная с массивом продуктов для одной странички
@@ -58,17 +56,8 @@ function PaginatedItems({
 
 PaginatedItems.propTypes = {
   productsPerPage: PropTypes.number.isRequired,
-  products: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    ),
-  ),
   setItemOffset: PropTypes.func.isRequired,
   itemOffset: PropTypes.number.isRequired,
-};
-
-PaginatedItems.defaultProps = {
-  products: [],
 };
 
 export default PaginatedItems;

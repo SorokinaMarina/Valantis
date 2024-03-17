@@ -6,7 +6,6 @@ import Select from "../Select/Select";
 
 function Main({
   productsPerPage,
-  products,
   setItemOffset,
   itemOffset,
   setFilterPopup,
@@ -23,7 +22,6 @@ function Main({
       </div>
       <PaginatedItems
         productsPerPage={productsPerPage}
-        products={products}
         setItemOffset={setItemOffset}
         itemOffset={itemOffset}
       />
@@ -33,11 +31,6 @@ function Main({
 
 Main.propTypes = {
   productsPerPage: PropTypes.number.isRequired,
-  products: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    ),
-  ),
   setItemOffset: PropTypes.func.isRequired,
   itemOffset: PropTypes.number.isRequired,
   setFilterPopup: PropTypes.func,
@@ -45,7 +38,6 @@ Main.propTypes = {
 };
 
 Main.defaultProps = {
-  products: [],
   setFilterPopup: () => {},
   setProductsPerPage: () => {},
 };

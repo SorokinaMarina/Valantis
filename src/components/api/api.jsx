@@ -1,7 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable prettier/prettier */
-// import fetch from "node-fetch";
-// const md5 = require("md5");
 import md5 from "md5";
 
 const url = "https://api.valantis.store:41000/";

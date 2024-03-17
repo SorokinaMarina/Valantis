@@ -3,18 +3,20 @@
 import "./Form.scss";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import FilterList from "../FilterList/FilterList";
 import { getProducts } from "../api/api";
+import { filteredId } from "../../redux/slice/idSlice/idSlice";
 
 function Form({
   id,
-  setId,
   setIsLoading,
   setFilterPopup,
   setError,
   setErrorText,
   handleError,
 }) {
+  const dispatch = useDispatch();
   // Объект содержит переменные, отвечающие за видимость инпутов меню фильтрации
   const [filterMenuVisible, setFilterMenuVisible] = useState({
     inputPrice: false,
@@ -61,15 +63,14 @@ function Form({
     getProducts("filter", values)
       .then((data) => {
         if (data.length === 0) {
-          console.log(data);
-          setId([]);
+          dispatch(filteredId([]));
           setIsLoading(false);
           setError(true);
           setErrorText(
             "Товары не найдены. Перезагрузите страницу и попробуйте ещё раз.",
           );
         } else {
-          setId(data);
+          dispatch(filteredId(data));
           setError(false);
           setErrorText("");
         }
@@ -140,7 +141,7 @@ function Form({
 
 Form.propTypes = {
   id: PropTypes.string.isRequired,
-  setId: PropTypes.func,
+  // setId: PropTypes.func,
   setIsLoading: PropTypes.func,
   setFilterPopup: PropTypes.func,
   setError: PropTypes.func,
@@ -149,7 +150,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  setId: () => {},
+  // setId: () => {},
   setIsLoading: () => {},
   setFilterPopup: () => {},
   setError: () => {},

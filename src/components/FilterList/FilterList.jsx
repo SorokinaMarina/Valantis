@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./FilterList.scss";
+import { useSelector } from "react-redux";
 import arrowDown from "../../image/downarrow_120663.svg";
 import InputField from "../InputField/InputField";
 import Radio from "../Radio/Radio";
-import { BrandContext } from "../../contexts/BrandsContext";
 
 function FilterList({
   text,
@@ -17,7 +17,7 @@ function FilterList({
   name,
   values,
 }) {
-  const brands = React.useContext(BrandContext);
+  const brands = useSelector((state) => state.brandsReducer.brands);
 
   return (
     <li className="list">

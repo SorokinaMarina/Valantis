@@ -1,21 +1,22 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable consistent-return */
 import React, { useState, useEffect } from "react";
 import "./App.scss";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../api/api";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Preloader from "../Preloader/Preloader";
 import FilterPopup from "../FilterPopup/FilterPopup";
-import { BrandContext } from "../../contexts/BrandsContext";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { setCountProducts } from "../../utils/constants/constants";
+import { getAllId } from "../../redux/slice/idSlice/idSlice";
+import { getProductsData } from "../../redux/slice/productsSlice/productsSlice";
+import { getBrands } from "../../redux/slice/brandsSlice/brandsSlice";
 
 function App() {
-  // // Переменная хранит в себе id товаров
-  const [id, setId] = useState([]);
-  // Переменная хранит в себе информацию о товарах
-  const [products, setProducts] = useState([]);
+  // дальнейший код
+  const dispatch = useDispatch();
+  // Переменная хранит в себе id товаров
+  const id = useSelector((state) => state.idReducer.id);
   // Переменная включает/выключает прелоадер
   const [isLoading, setIsLoading] = useState(true);
   // Переменная показывает какое количество данных будем хранить на страничке
@@ -24,8 +25,6 @@ function App() {
   const [itemOffset, setItemOffset] = useState(0);
   // Переменная отвечает за видимость попапа с фильтрами
   const [filterPopup, setFilterPopup] = useState(false);
-  // Переменная содержит в себе массив брендов
-  const [brands, setBrands] = useState([]);
   // Переменная отвечает за видимость ошибки
   const [error, setError] = useState(false);
   // Переменная устанавливает текст ошибки
@@ -60,7 +59,7 @@ function App() {
     getProducts("get_ids", { offset: 0 })
       .then((data) => {
         if (data) {
-          setId(data);
+          dispatch(getAllId(data));
           setError(false);
           setErrorText("");
         }
@@ -89,7 +88,7 @@ function App() {
                 setIsLoading(false);
               }
             });
-            setProducts(uniqueProducts);
+            dispatch(getProductsData(uniqueProducts));
           }
 
           if (brandItems) {
@@ -101,7 +100,7 @@ function App() {
                 uniqueBrands.push(item);
               }
             });
-            setBrands(uniqueBrands);
+            dispatch(getBrands(uniqueBrands));
             setError(false);
             setErrorText("");
           }
@@ -115,32 +114,28 @@ function App() {
 
   return (
     <div className="app">
-      <BrandContext.Provider value={brands}>
-        <Header />
-        {isLoading && !error && <Preloader />}
-        {!isLoading && !error && (
-          <Main
-            productsPerPage={productsPerPage}
-            products={products}
-            setItemOffset={setItemOffset}
-            itemOffset={itemOffset}
-            setFilterPopup={setFilterPopup}
-            setProductsPerPage={setProductsPerPage}
-          />
-        )}
-        {!isLoading && error && <ErrorMessage errorText={errorText} />}
-        <FilterPopup
-          filterPopup={filterPopup}
+      <Header />
+      {isLoading && !error && <Preloader />}
+      {!isLoading && !error && (
+        <Main
+          productsPerPage={productsPerPage}
+          setItemOffset={setItemOffset}
+          itemOffset={itemOffset}
           setFilterPopup={setFilterPopup}
-          setId={setId}
-          setIsLoading={setIsLoading}
-          setError={setError}
-          setErrorText={setErrorText}
-          handleError={(err) => {
-            handleError(err);
-          }}
+          setProductsPerPage={setProductsPerPage}
         />
-      </BrandContext.Provider>
+      )}
+      {!isLoading && error && <ErrorMessage errorText={errorText} />}
+      <FilterPopup
+        filterPopup={filterPopup}
+        setFilterPopup={setFilterPopup}
+        setIsLoading={setIsLoading}
+        setError={setError}
+        setErrorText={setErrorText}
+        handleError={(err) => {
+          handleError(err);
+        }}
+      />
     </div>
   );
 }

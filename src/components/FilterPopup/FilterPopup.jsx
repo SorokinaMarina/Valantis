@@ -7,7 +7,6 @@ import Form from "../Form/Form";
 function FilterPopup({
   filterPopup,
   setFilterPopup,
-  setId,
   setIsLoading,
   setError,
   setErrorText,
@@ -52,7 +51,6 @@ function FilterPopup({
         </button>
         <Form
           id="filter-form"
-          setId={setId}
           setIsLoading={setIsLoading}
           setFilterPopup={setFilterPopup}
           setError={setError}
@@ -69,7 +67,7 @@ function FilterPopup({
 FilterPopup.propTypes = {
   filterPopup: PropTypes.bool.isRequired,
   setFilterPopup: PropTypes.func,
-  setId: PropTypes.func,
+  // setId: PropTypes.func,
   setIsLoading: PropTypes.func,
   setError: PropTypes.func,
   setErrorText: PropTypes.func,
@@ -78,7 +76,7 @@ FilterPopup.propTypes = {
 
 FilterPopup.defaultProps = {
   setFilterPopup: () => {},
-  setId: () => {},
+  // setId: () => {},
   setIsLoading: () => {},
   setError: () => {},
   setErrorText: () => {},
