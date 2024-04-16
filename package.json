@@ -33,7 +33,9 @@
     "lint:fix": "npx eslint . --fix",
     "prepare": "husky install",
     "format": "prettier . --write",
-    "commit": "cz"
+    "commit": "cz",
+    "server": "json-server -w server/db.json -p 3001",
+    "dev": "concurrently \"npm run server\" \"npm run start\""
   },
   "lint-staged": {
     "*.{js, jsx,ts,tsx}": [
@@ -78,6 +80,8 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -88,6 +92,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "gh-pages": "^6.1.1",
     "husky": "^8.0.0",
+    "json-server": "^1.0.0-alpha.23",
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "react-paginate": "^8.2.0"
