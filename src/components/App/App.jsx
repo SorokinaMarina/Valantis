@@ -56,7 +56,7 @@ function App() {
   // Получаем id товаров
   useEffect(() => {
     setIsLoading(true);
-    getProducts("get_ids", { offset: 0, limit: 100 })
+    getProducts("get_ids", { offset: 0, limit: 600 })
       .then((data) => {
         if (data) {
           dispatch(getAllId(data));
